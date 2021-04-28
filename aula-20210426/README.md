@@ -18,3 +18,10 @@ Existem alguns pilares que definem o que é Orientação a Objetos. Que são ele
 * Encapsulamento: É o processo onde cada objeto mantém um estado interno que só pode ser acessado e/ou modificado pelo próprio objeto. Nesse processo definimos uma série de métodos públicos, onde a partir destes alteramos o estado.
 * Herança: É a capacidade de uma classe herdar características(atributos/métodos) de uma outra classe.
 * Polimorfismo: É a capacidade de uma classe filha definir as próprias características/ações e mesmo assim compartilhar as funcionalidades da classe pai/base
+
+## 1 Exercício
+* Definir uma classe que representará uma máquina de café. Regras
+    * Para usarmos a máquina, ela deve estar ligada.
+    * Para fazer o café, precisamos de água e pó de café.
+    * Após isso, apertamos o botão "Fazer café".
+    * Ao final de alguns segundos, o café estará pronto.
