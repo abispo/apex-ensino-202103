@@ -1,0 +1,6 @@
+tipo_funcionario;nome;salario;qtd_horas_trabalhadas;valor_hora;valor_total_vendas;porcentagem_comissao
+1;Maria;2000;;;;;
+1;Lorena;3000;;;;;
+2;Carlos;0;100;20;;
+2;Danilo;0;140;40
+3;Marcelo;0;0;0;12900;15
