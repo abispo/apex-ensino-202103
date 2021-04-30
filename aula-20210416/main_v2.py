@@ -1,4 +1,5 @@
 # Usamos o pacote csv sempre que quisermos trabalhar com arquivos .csv
+# Comma separated values
 import csv
 
 if __name__ == '__main__':

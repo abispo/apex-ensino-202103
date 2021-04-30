@@ -1,15 +1,15 @@
 if __name__ == "__main__":
     print("Curso Python")
 
-    nome_funcionario = "Joana";
+    nome_funcionario = "Joana"
     print(nome_funcionario)
-    print("Pronto")
 
     nome = 'José'
     frase = "Olá mundo"
     texto = """
         Primeira sentença
         Segunda sentença
+        nome_funcionario
     """
     print(texto)
 
@@ -31,4 +31,7 @@ if __name__ == "__main__":
 
     if usuario == "Maria":
         print("Maria logada")
+        print("ok")
+
+    elif usuario == "Lorena":
         print("ok")

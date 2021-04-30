@@ -17,7 +17,7 @@ if __name__ == '__main__':
     _file.seek(0)
 
     # read() aceita um argumento n, que é o número de caracteres que desejamos retornar
-    file_content = _file.read(20)
+    file_content = _file.read()
     print(file_content)
 
     _file.seek(0)
@@ -34,9 +34,9 @@ if __name__ == '__main__':
     # Um objeto do tipo file é iterável, ou seja, podemos usar o for para acessar o seu conteúdo.
     # Quando iteramos sobre um arquivo, cada linha é considerada um item
     # Nesse exemplo, mostramos apenas a quinta linha do arquivo.
-    for index, line in enumerate(_file):
-        if index == 4:
-            print(line)
+    for contador, line in enumerate(_file):
+        if contador >= 5:
+            break
 
 
     # readlines() retorna o conteúdo do arquivo como uma lista de strings (cada item da lista correspondendo)
@@ -66,5 +66,7 @@ if __name__ == '__main__':
     with open("funcionarios.csv", "r") as _file:
         print(_file.readlines())
         # print(_file.closed)
+
+    _file.close()
 
     print(_file.closed)
