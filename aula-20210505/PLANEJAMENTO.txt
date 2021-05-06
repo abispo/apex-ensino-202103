@@ -1,0 +1,15 @@
+PLANEJAMENTO
+
+Criação do novo projeto
+Criação do arquivo database.py
+Criação do banco de dados via linha de comando
+Configuração da conexão a base de dados
+
+Funções
+    - cursor.execute()
+    - cursor.executemany(stmt, data)
+    
+    - cursor.execute().fetchall()
+    - cursor.execute().fetchmany(size=1)
+    - cursor.execute().fetchone()
+
