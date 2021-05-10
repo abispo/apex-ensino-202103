@@ -1,7 +1,7 @@
 
 from datetime import datetime
 from database import Base
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text
 
 
 class User(Base):
@@ -15,3 +15,33 @@ class User(Base):
     passwd = Column(String(50), nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow())
 
+    def __repr__(self):
+        return f"User(id={self.id}, email={self.email}, login={self.login})"
+
+
+class Profile(Base):
+    __tablename__ = 'tb_profiles'
+
+    id = Column(Integer, ForeignKey("tb_users.id"), primary_key=True, autoincrement=False)
+    first_name = Column(String(30), nullable=False)
+    last_name = Column(String(50), nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow())
+    updated_at = Column(DateTime, onupdate=datetime.utcnow())
+
+# Criar model Post
+# O nome da tabela no banco será tb_posts
+# Terá um campo chave primária chamado id, auto incremento
+# Terá um campo chave estrangeira de nome user_id que vai apontar para o campo id da
+# tabela tb_users
+# Terá os campos: title(string 100, não nula), body (Text, não nulo) created_at/updated_at
+
+
+class Post(Base):
+    __tablename__ = 'tb_posts'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey('tb_users.id'))
+    title = Column(String(50), nullable=False)
+    body = Column(Text, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow())
+    updated_at = Column(DateTime, onupdate=datetime.utcnow())
