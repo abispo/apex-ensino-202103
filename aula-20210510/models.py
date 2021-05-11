@@ -24,6 +24,7 @@ class User(Base):
 
     posts = relationship("Post", back_populates='user')
     profile = relationship("Profile", uselist=False, back_populates='user')
+    comments = relationship("Comment", back_populates='user')
 
     def __repr__(self):
         return f"User(id={self.id}, email={self.email}, login={self.login})"
@@ -60,6 +61,7 @@ class Post(Base):
 
     user = relationship("User", uselist=False, back_populates='posts')
     tags = relationship("Tag", secondary=posts_tags, back_populates="posts")
+    comments = relationship("Comment", back_populates="post")
 
 
 class Tag(Base):
@@ -69,3 +71,16 @@ class Tag(Base):
     name = Column(String(50), nullable=False)
 
     posts = relationship("Post", secondary=posts_tags, back_populates="tags")
+
+
+class Comment(Base):
+    __tablename__ = 'tb_comments'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey('tb_users.id'))
+    post_id = Column(Integer, ForeignKey('tb_posts.id'))
+    text = Column(String(255), nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow())
+
+    user = relationship("User", uselist=False, back_populates="comments")
+    post = relationship("Post", uselist=False, back_populates="comments")
