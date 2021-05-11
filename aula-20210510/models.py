@@ -23,6 +23,7 @@ class User(Base):
     created_at = Column(DateTime, default=datetime.utcnow())
 
     posts = relationship("Post", back_populates='user')
+    profile = relationship("Profile", uselist=False, back_populates='user')
 
     def __repr__(self):
         return f"User(id={self.id}, email={self.email}, login={self.login})"
@@ -36,6 +37,8 @@ class Profile(Base):
     last_name = Column(String(50), nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow())
     updated_at = Column(DateTime, onupdate=datetime.utcnow())
+
+    user = relationship("User", uselist=False, back_populates='profile')
 
 # Criar model Post
 # O nome da tabela no banco será tb_posts
@@ -55,9 +58,14 @@ class Post(Base):
     created_at = Column(DateTime, default=datetime.utcnow())
     updated_at = Column(DateTime, onupdate=datetime.utcnow())
 
+    user = relationship("User", uselist=False, back_populates='posts')
+    tags = relationship("Tag", secondary=posts_tags, back_populates="posts")
+
 
 class Tag(Base):
     __tablename__ = 'tb_tags'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(50), nullable=False)
+
+    posts = relationship("Post", secondary=posts_tags, back_populates="tags")

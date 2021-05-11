@@ -76,16 +76,28 @@ if __name__ == '__main__':
                     session.add(tag)
                     session.commit()
 
+                post.tags.append(tag)
+
+            session.add(post)
+            session.commit()
 
         elif opcao == 3:
-            users_list = session.query(User.id, User.email, User.login).all()
+            users_list = session.query(User).all()
 
             for user in users_list:
+                profile_data = None
+
+                if user.profile:
+                    profile_data = f"""
+                    NOME: {user.profile.first_name}
+                    SOBRENOME: {user.profile.last_name}
+                    """
+
                 message = f"""
                 ID: {user.id}
                 EMAIL: {user.email}
                 LOGIN: {user.login}
-                """
+                {profile_data}"""
 
                 print(message)
 
