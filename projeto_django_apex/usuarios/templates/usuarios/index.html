@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <p>Olá {{ request.user.first_name | default:"Usuário" }}.</p>
+    <p><a href="#">Contas</a></p>
+    <p><a href="#">Transações</a></p>
+
+    <hr>
+    <a href="{% url 'logout' %}?next={{ request.path }}">Sair</a>
+{% endblock %}
