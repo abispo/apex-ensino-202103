@@ -3,6 +3,8 @@ from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 
+from contas.models import Conta
+
 
 class Perfil(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -21,3 +23,10 @@ def salvar_perfil_de_usuario(sender, instance, created, **kwargs):
         Perfil.objects.create(usuario=instance)
     else:
         instance.perfil.save()
+
+
+# Salvar uma conta padrão quando o usuário estiver sendo criado.
+@receiver(post_save, sender=User)
+def criar_conta_padrao(sender, instance, created, **kwargs):
+    if created:
+        Conta.objects.create(usuario=instance, nome="Conta padrão")

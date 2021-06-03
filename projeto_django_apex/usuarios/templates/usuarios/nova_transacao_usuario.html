@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Cadastro de nova transação</h2>
+    <hr>
+    <form method="POST" action="{% url 'usuarios:criar_nova_transacao_usuario' request.user.id %}">
+        {% csrf_token %}
+
+        <label for="conta_debito">Conta a ser debitada</label>
+        <select name="conta_debito" id="conta_debito">
+            {% for conta in contas_usuario %}
+                <option value="{{ conta.id }}">{{ conta.nome }}</option>
+            {% endfor %}
+        </select>
+        <label for="conta_credito">Conta a ser creditada</label>
+        <select name="conta_credito" id="conta_credito">
+            {% for conta in contas_usuario %}
+                <option value="{{ conta.id }}">{{ conta.nome }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <label for="valor_transacao">Valor da transação</label>
+        <input type="text" name="valor_transacao" id="valor_transacao">
+
+        <br><br>
+        <input type="submit" value="Criar">
+    </form>
+
+    <hr>
+    <p><a href="{% url 'usuarios:index' request.user.id %}">Voltar à página principal</a></p>
+{% endblock %}

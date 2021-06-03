@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Transações do usuário {{ request.user.first_name }}</h2>
+    <hr>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Conta debitada</th>
+            <th>Conta creditada</th>
+            <th>Valor</th>
+            <th>Data/Hora</th>
+        </tr>
+        {% for transacao in transacoes_usuario %}
+            <tr>
+                <td>{{ transacao.id }}</td>
+                <td>{{ transacao.conta_debito.nome }}</td>
+                <td>{{ transacao.conta_credito.nome }}</td>
+                <td>{{ transacao.valor }}</td>
+                <td>{{ transacao.data_de_criacao }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <hr>
+    <p><a href="{% url 'usuarios:criar_nova_transacao_usuario' request.user.id %}">Criar nova transação</a></p>
+    <p><a href="{% url 'usuarios:index' request.user.id %}">Voltar à página principal</a></p>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Contas do usuário {{ request.user.first_name }}</h2>
+    <hr>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nome da conta</th>
+            <th>Saldo</th>
+        </tr>
+        {% for conta in contas_usuario %}
+            <tr>
+                <td>{{ conta.id }}</td>
+                <td>{{ conta.nome }}</td>
+                <td>R$ {{ conta.saldo }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <hr>
+    <p><a href="{% url 'usuarios:criar_nova_conta_usuario' request.user.id %}">Criar nova conta</a></p>
+    <p><a href="{% url 'usuarios:index' request.user.id %}">Voltar à página principal</a></p>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Cadastro de nova conta</h2>
+    <hr>
+    <form method="POST" action="{% url 'usuarios:criar_nova_conta_usuario' request.user.id %}">
+        {% csrf_token %}
+        <label for="nome_conta">Nome da conta</label>
+        <input type="text" id="nome_conta", name="nome_conta">
+
+        <label for="saldo_inicial_conta">Saldo inicial</label>
+        <input type="text" id="saldo_inicial_conta" name="saldo_inicial_conta">
+        <br><br>
+        <input type="submit" value="Criar">
+    </form>
+
+    <hr>
+    <p><a href="{% url 'usuarios:index' request.user.id %}">Voltar à página principal</a></p>
+{% endblock %}

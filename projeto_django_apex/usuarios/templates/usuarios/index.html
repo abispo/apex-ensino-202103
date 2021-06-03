@@ -2,8 +2,8 @@
 
 {% block content %}
     <p>Olá {{ request.user.first_name | default:"Usuário" }}.</p>
-    <p><a href="#">Contas</a></p>
-    <p><a href="#">Transações</a></p>
+    <p><a href="{% url 'usuarios:listar_contas_usuario' request.user.id %}">Contas</a></p>
+    <p><a href="{% url 'usuarios:listar_transacoes_usuario' request.user.id %}">Transações</a></p>
 
     <hr>
     <a href="{% url 'logout' %}?next={{ request.path }}">Sair</a>
