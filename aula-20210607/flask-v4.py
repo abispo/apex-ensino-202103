@@ -1,5 +1,9 @@
-
-from flask import Flask
+from datetime import datetime
+# A classe HTTPStatus contém as constantes que representam os códigos de retorno HTTP
+from http import HTTPStatus
+# O objeto request do Flask é responsável por armazenar as requisições feitas a um endpoint
+# A função jsonify retorna uma resposta em json formado pelos argumentos que lhe são passados.
+from flask import Flask, request, jsonify
 
 # Precisamos criar o objeto Flask que vai representar a nossa
 # aplicação
@@ -25,7 +29,40 @@ def hello_username(username):
 # tipo que desejarmos.
 @app.route('/double/<int:num>')
 def double_num(num):
-    return f"{num * num}s"
+    return f"{num * num}"
+
+
+# O argumento methods indica quais os verbos HTTP são aceitos nessa
+# rota (GET, POST, PATCH, etc...)
+@app.route('/datenow', methods=['GET'])
+def datenow():
+    return datetime.now().strftime('%H:%M:%S %Y-%m-%d')
+
+
+@app.route('/operation', methods=['POST'])
+def operation():
+    data = request.json
+
+    operation = data['operation']
+    number_1 = data['number_1']
+    number_2 = data['number_2']
+
+    if operation == '+':
+        result = number_1 + number_2
+
+    elif operation == '-':
+        result = number_1 - number_2
+
+    elif operation == '*':
+        result = number_1 * number_2
+
+    elif operation == '/':
+        result = number_1 / number_2
+
+    else:
+        return jsonify(message="Operação desconhecida"), HTTPStatus.NOT_FOUND
+
+    return jsonify({'result': result}), HTTPStatus.CREATED
 
 
 if __name__ == '__main__':
