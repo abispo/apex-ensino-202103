@@ -10,6 +10,7 @@ class Account(db.Model):
     balance = db.Column(db.Float(), default=0)
 
     user = db.relationship("User", uselist=False, back_populates="accounts")
+    transactions = db.relationship("Transaction", back_populates="")
 
     def serialize(self):
         return {
@@ -30,10 +31,14 @@ class Transaction(db.Model):
     observation = db.Column(db.Text())
     timestamp = db.Column(db.DateTime(), server_default=db.func.now())
 
+    user = db.relationship("User", uselist=False, back_populates="transactions")
+    debit_account = db.relationship("Account", uselist=False, back_populates="transactions")
+    credit_account = db.relationship("Account", uselist=False, back_populates="transactions")
+
     def serialize(self):
         return {
             'id': self.id,
-            'user_id': self.user_id,
+            'user': self.user.email,
             'debit_account_id': self.debit_account_id,
             'credit_account_id': self.credit_account_id,
             'value': self.value,

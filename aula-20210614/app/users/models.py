@@ -12,6 +12,7 @@ class User(db.Model):
 
     profile = db.relationship("Profile", uselist=False, back_populates="user")
     accounts = db.relationship("Account", back_populates="user")
+    transactions = db.relationship("Transaction", back_populates="user")
 
     def serialize(self, full=False):
 

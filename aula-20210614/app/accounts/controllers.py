@@ -40,6 +40,10 @@ def create_transaction(data):
     return transaction
 
 
+def get_transactions():
+    return Transaction.query.all()
+
+
 def make_accounts_transfer(debit_account, credit_account, value):
     debit_account.balance -= value
     credit_account.balance += value

@@ -2,7 +2,7 @@
 from http import HTTPStatus
 from flask import Blueprint, request, jsonify
 from .models import Account
-from .controllers import create_transaction
+from .controllers import create_transaction, get_transactions
 
 accounts_app = Blueprint('accounts_app', __name__)
 
@@ -47,3 +47,9 @@ def post_transaction():
     transaction = create_transaction(data)
 
     return jsonify(transaction.serialize()), HTTPStatus.CREATED
+
+
+@accounts_app.route('/transactions', methods=['GET'])
+def get_all_transactions():
+    all_transactions = [transaction.serialize() for transaction in get_transactions()]
+    return jsonify(all_transactions), HTTPStatus.OK
