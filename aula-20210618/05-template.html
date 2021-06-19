@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <title>Template 01</title>
+    </head>
+    <body>
+        <div id="app">
+            <!-- Esse processo é chamado de interpolação de variável -->
+            <!-- v-once faz que o valor seja lido apenas 1 vez -->
+            <p v-once>{{ titulo }}</p>
+            <p>{{ mensagem() }}</p>
+            <!-- Não é possível interpolar uma propriedade dentro de data em um atributo de uma tag -->
+            <!-- Para fazer isso, precisamos usar a diretiva v-bind -->
+            <!-- v-bind liga o que está dentro de data ao atributo da tag -->
+            <p><a v-bind:href="link">Ir para o site da Apex Ensino</a></p>
+            <p><input type="text" v-bind:value="texto"></p>
+        </div>
+        
+    </body>
+
+    <script>
+        // Aqui criamos a instância da classe Vue
+        new Vue({
+            // A propriedade el indica qual elemento a instância do VueJS irá controlar.
+            // ids de elementos HTML são identificados com hashtag na frente
+            el: '#app',
+            data: {
+                titulo: 'Módulo VueJS',
+                texto: 'Bem-vindo novamente.',
+                link: 'https://apexensino.com.br/'
+            },
+            // Em methods definimos as funções que vamos usar na nossa aplicação.
+            // As funções não podem ter o mesmo nome das propriedades em data, e vice-versa
+            methods: {
+                mensagem() {
+                    return this.texto
+                }
+            }
+        })
+    </script>
+
+</html>

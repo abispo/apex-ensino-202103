@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <p>Contador: <strong>{{ contador }}</strong></p>
+        <!-- v-on captura um evento e executa algo -->
+        <!-- Abaixo, v-on está capturando o evento click do botão e executando a função adicionar -->
+        <p>
+            <!-- Se, além de um argumento para a funçao, precisarmos receber também
+            o evento que chamou essa função, precisamos usar a palavra reservada $event,
+            que será passada como argumento -->
+            <button v-on:click="adicionar(2, $event)">Adicionar</button>
+            <button v-on:click="reiniciar">Reiniciar</button>
+        </p>
+        <!-- stop é um modificador de evento que impede que os eventos da tag pai (p)
+            sejam propagados para as tags filhas (span)
+            podemos usar também a seguinte sintaxe: v-on:mousemove="pararPosicaoMouse" 
+        -->
+        <p
+            style="background-color: aquamarine;"
+            v-on:mousemove="capturarPosicaoMouse"
+        >Posição do Mouse: x: {{ x }} | y: {{ y }} - <span v-on:mousemove.stop style="background-color: blueviolet;">Não funciona aqui</span></p>
+        <!-- O modificador de evento prevent serve para evitar que executemos o comportamento
+            padrão em um evento
+            Podemos usar também v-on:click="naoSeguirLink" -->
+        <p><a v-on:click.prevent v-bind:href="link">Ir para o site da Apex Ensino</a></p>
+        <!-- <p><input type="text" v-on:keyup="exibirAlerta"></p> -->
+        <!-- <p><input type="text" v-on:keyup.enter="exibirAlerta"></p> -->
+        <!-- O código 8 corresponde a tecla backspace -->
+        <!-- <p><input type="text" v-on:keyup.8="exibirAlerta"></p> -->
+        <!-- Podemos combinar as teclas que irão chamar uma função, como SHIFT+ENTERs -->
+        <p><textarea name="texto" id="texto" cols="30" rows="10" v-on:keyup.enter.shift="exibirAlerta"></textarea></p>
+    </div>
+    
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            contador: 0,
+            x: 0,
+            y: 0,
+            link: 'https://apexensino.com.br/'
+        },
+        methods: {
+            adicionar(valor, e) {
+                console.log(e)
+                this.contador += valor
+            },
+            reiniciar() {
+                this.contador = 0
+            },
+            capturarPosicaoMouse(event) {
+                this.x = event.clientX
+                this.y = event.clientY
+            },
+            pararPosicaoMouse(event) {
+                event.stopPropagation()
+            },
+            naoSeguirLink(event) {
+                event.preventDefault()
+            },
+            exibirAlerta() {
+                alert('Texto recebido!')
+            }
+        }
+    })
+</script>
+</html>
